@@ -13,8 +13,8 @@
    まめや MENU ページ
    ---------------------------------------------------------
    差し替えポイント
-   ・写真   : 下の :root の --img-hero / --img-affogato / --img-order
-              に画像パスを入れるだけで差し替わります(images/フォルダ想定)
+   ・写真   : 下の :root の --img-hero / --img-order に画像パスを入れると
+              差し替わります(現在は image/ フォルダ内の2枚)
    ・注文URL : 下の <script> 内の ORDER_URL
    ・豆の情報: <script> 内の beans 配列
    ・焙煎度  : <script> 内の ROASTS(現在は浅・中・深の3段階)
@@ -29,9 +29,8 @@
   --clay:#94503f;
   --ink:#1c3447;
 
-  --img-hero:url("images/hero-roaster.jpg");
-  --img-affogato:url("images/affogato.jpg");
-  --img-order:url("images/beans.jpg");
+  --img-hero:url("image/hero-roaster.jpg");
+  --img-order:url("image/beans.jpg");
 
   --f-en:"Copper Bold","Copper","Copperplate Gothic Bold","Copperplate","Cinzel",Georgia,serif;
   --f-ja:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;
@@ -226,10 +225,7 @@ section{padding-top:56px}
 .item .jp b{font-weight:600;color:var(--espresso)}
 .temp{display:inline-flex;gap:4px;margin-left:8px;vertical-align:2px}
 .temp em{font-style:normal;font-family:var(--f-ja);font-weight:600;font-size:10.5px;line-height:1;padding:3px 7px;border-radius:999px;border:1.2px solid var(--clay);color:var(--clay)}
-.affo-photo{
-  width:100%;aspect-ratio:16/9;border-radius:18px;margin:6px 0 10px;
-  background:var(--img-affogato) center/cover no-repeat,linear-gradient(135deg,#8a5a34,#3a2416);
-}
+
 .cafe-note{margin-top:14px;font-size:12.5px;opacity:.85;text-align:center}
 
 /* ---------- フッター ---------- */
@@ -451,7 +447,7 @@ const cafe = [
  {title:"OTHERS", sub:"その他", items:[
    {en:"Ginger Ale", t:[H,I], jp:"自家製ジンジャーエール<br>生姜をカルダモン、クローブなどと煮込んだ自家製シロップ", p:500},
    {en:"Lemonade", t:[H,I], jp:"自家製レモネード<br>国産レモンをはちみつとザラメで丁寧に仕込みました。", p:500}]},
- {title:"AFFOGATO", sub:"アフォガート", photo:true, items:[
+ {title:"AFFOGATO", sub:"アフォガート", items:[
    {en:"Affogato", t:[], jp:"アフォガート<br>バニラアイスにエスプレッソをかけたイタリアのスイーツ", p:700},
    {en:"Set menu", t:[], jp:"ドリンクセット<br>お好きなドリンクなんでもセットでお選びいただけます", p:1100}]},
  {title:"MINI SWEETS", sub:"ミニスイーツ", items:[
@@ -531,7 +527,6 @@ function renderCafe(){
     <div class="tile menu-tile">
       <h3 class="en">${c.title}</h3>
       <p class="h-sub">${c.sub}</p>
-      ${c.photo?`<div class="affo-photo" role="img" aria-label="アフォガート"></div>`:""}
       ${c.items.map(i=>`
         <div class="item">
           <div class="nm">${i.en}${i.t.length?`<span class="temp">${i.t.map(x=>`<em>${x}</em>`).join("")}</span>`:""}</div>
